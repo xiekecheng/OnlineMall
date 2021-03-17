@@ -5,7 +5,13 @@ import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 
+/****
+ * @Author:shenkunlin
+ * @Description:Album业务层接口
+ * @Date 2019/6/14 0:16
+ *****/
 public interface AlbumService {
+
     /***
      * Album多条件分页查询
      * @param album
@@ -53,7 +59,7 @@ public interface AlbumService {
      * @param id
      * @return
      */
-    Album findById(Long id);
+     Album findById(Long id);
 
     /***
      * 查询所有Album

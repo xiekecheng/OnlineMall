@@ -12,6 +12,11 @@ import tk.mybatis.mapper.entity.Example;
 
 import java.util.List;
 
+/****
+ * @Author:shenkunlin
+ * @Description:Template业务层接口实现类
+ * @Date 2019/6/14 0:16
+ *****/
 @Service
 public class TemplateServiceImpl implements TemplateService {
 
@@ -75,19 +80,19 @@ public class TemplateServiceImpl implements TemplateService {
         if(template!=null){
             // ID
             if(!StringUtils.isEmpty(template.getId())){
-                criteria.andEqualTo("id",template.getId());
+                    criteria.andEqualTo("id",template.getId());
             }
             // 模板名称
             if(!StringUtils.isEmpty(template.getName())){
-                criteria.andLike("name","%"+template.getName()+"%");
+                    criteria.andLike("name","%"+template.getName()+"%");
             }
             // 规格数量
             if(!StringUtils.isEmpty(template.getSpecNum())){
-                criteria.andEqualTo("specNum",template.getSpecNum());
+                    criteria.andEqualTo("specNum",template.getSpecNum());
             }
             // 参数数量
             if(!StringUtils.isEmpty(template.getParaNum())){
-                criteria.andEqualTo("paraNum",template.getParaNum());
+                    criteria.andEqualTo("paraNum",template.getParaNum());
             }
         }
         return example;

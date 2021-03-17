@@ -6,12 +6,17 @@ import com.github.pagehelper.PageInfo;
 import entity.Result;
 import entity.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@SpringBootApplication
+/****
+ * @Author:shenkunlin
+ * @Description:
+ * @Date 2019/6/14 0:18
+ *****/
+
+@RestController
 @RequestMapping("/para")
 @CrossOrigin
 public class ParaController {
@@ -28,7 +33,7 @@ public class ParaController {
      */
     @PostMapping(value = "/search/{page}/{size}" )
     public Result<PageInfo> findPage(@RequestBody(required = false)  Para para, @PathVariable  int page, @PathVariable  int size){
-        //执行搜索
+        //调用ParaService实现分页条件查询Para
         PageInfo<Para> pageInfo = paraService.findPage(para, page, size);
         return new Result(true,StatusCode.OK,"查询成功",pageInfo);
     }
@@ -41,7 +46,7 @@ public class ParaController {
      */
     @GetMapping(value = "/search/{page}/{size}" )
     public Result<PageInfo> findPage(@PathVariable  int page, @PathVariable  int size){
-        //分页查询
+        //调用ParaService实现分页查询Para
         PageInfo<Para> pageInfo = paraService.findPage(page, size);
         return new Result<PageInfo>(true,StatusCode.OK,"查询成功",pageInfo);
     }
@@ -53,6 +58,7 @@ public class ParaController {
      */
     @PostMapping(value = "/search" )
     public Result<List<Para>> findList(@RequestBody(required = false)  Para para){
+        //调用ParaService实现条件查询Para
         List<Para> list = paraService.findList(para);
         return new Result<List<Para>>(true,StatusCode.OK,"查询成功",list);
     }
@@ -64,6 +70,7 @@ public class ParaController {
      */
     @DeleteMapping(value = "/{id}" )
     public Result delete(@PathVariable Integer id){
+        //调用ParaService实现根据主键删除
         paraService.delete(id);
         return new Result(true,StatusCode.OK,"删除成功");
     }
@@ -78,7 +85,7 @@ public class ParaController {
     public Result update(@RequestBody  Para para,@PathVariable Integer id){
         //设置主键值
         para.setId(id);
-        //修改数据
+        //调用ParaService实现修改Para
         paraService.update(para);
         return new Result(true,StatusCode.OK,"修改成功");
     }
@@ -89,9 +96,10 @@ public class ParaController {
      * @return
      */
     @PostMapping
-    public Result add(@RequestBody Para para){
+    public Result add(@RequestBody   Para para){
+        //调用ParaService实现添加Para
         paraService.add(para);
-        return new Result(true, StatusCode.OK,"添加成功");
+        return new Result(true,StatusCode.OK,"添加成功");
     }
 
     /***
@@ -101,7 +109,7 @@ public class ParaController {
      */
     @GetMapping("/{id}")
     public Result<Para> findById(@PathVariable Integer id){
-        //根据ID查询
+        //调用ParaService实现根据主键查询Para
         Para para = paraService.findById(id);
         return new Result<Para>(true,StatusCode.OK,"查询成功",para);
     }
@@ -111,8 +119,9 @@ public class ParaController {
      * @return
      */
     @GetMapping
-    public Result<Para> findAll(){
+    public Result<List<Para>> findAll(){
+        //调用ParaService实现查询所有Para
         List<Para> list = paraService.findAll();
-        return new Result<Para>(true, StatusCode.OK,"查询成功",list) ;
+        return new Result<List<Para>>(true, StatusCode.OK,"查询成功",list) ;
     }
 }
