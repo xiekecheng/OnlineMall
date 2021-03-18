@@ -8,6 +8,7 @@ import entity.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.Id;
 import java.util.List;
 
 /****
@@ -23,6 +24,12 @@ public class SpecController {
 
     @Autowired
     private SpecService specService;
+
+    @GetMapping("/category/{id}")
+    public Result<List<Spec>> findByCategoryId(@PathVariable Integer id){
+        List<Spec> specList = specService.findByCategoryId(id);
+        return new Result<>(true,StatusCode.OK,"查询成功",specList);
+    }
 
     /***
      * Spec分页条件搜索实现

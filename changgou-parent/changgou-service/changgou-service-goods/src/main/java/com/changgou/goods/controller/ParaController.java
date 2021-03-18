@@ -24,6 +24,12 @@ public class ParaController {
     @Autowired
     private ParaService paraService;
 
+    @GetMapping("/category/{id}")
+    public Result<List<Para>> findByCategoryId(@PathVariable Integer id){
+        List<Para> paraList = paraService.findByCategoryId(id);
+        return new Result<>(true,StatusCode.OK,"查询分类对应参数成功",paraList);
+    }
+
     /***
      * Para分页条件搜索实现
      * @param para
