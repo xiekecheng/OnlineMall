@@ -28,7 +28,8 @@ public class BrandController {
     @GetMapping("/category/{id}")
     public Result<List<Brand>> findBrandByCategoryId(@PathVariable Integer id){
         List<Brand> brandList = brandService.findBrandByCategoryId(id);
-        return new Result<>(true,StatusCode.OK,"查询成功",brandList);
+        //return new Result<>(true,StatusCode.OK,"查询成功",brandList);
+        return new Result<>(true,StatusCode.OK,"查询品牌成功",brandList);
     }
 
     /***

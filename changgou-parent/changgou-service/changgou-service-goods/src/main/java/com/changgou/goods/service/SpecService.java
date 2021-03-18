@@ -11,6 +11,7 @@ import java.util.List;
  * @Date 2019/6/14 0:16
  *****/
 public interface SpecService {
+    List<Spec> findByCategoryId(Integer id);
 
     /***
      * Spec多条件分页查询
