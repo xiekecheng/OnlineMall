@@ -1,5 +1,6 @@
 package com.changgou.goods.service;
 
+import com.changgou.goods.pojo.Brand;
 import com.changgou.goods.pojo.Category;
 import com.github.pagehelper.PageInfo;
 
@@ -11,6 +12,15 @@ import java.util.List;
  * @Date 2019/6/14 0:16
  *****/
 public interface CategoryService {
+
+    /**
+     * 根据父节点id查询分类
+     * @param pid
+     * @return
+     */
+    List<Category> findByParentId(Integer pid);
+
+
 
     /***
      * Category多条件分页查询

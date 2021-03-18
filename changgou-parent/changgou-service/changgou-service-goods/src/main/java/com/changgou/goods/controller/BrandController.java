@@ -5,6 +5,7 @@ import com.changgou.goods.service.BrandService;
 import com.github.pagehelper.PageInfo;
 import entity.Result;
 import entity.StatusCode;
+import jdk.nashorn.internal.ir.ReturnNode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +24,12 @@ public class BrandController {
 
     @Autowired
     private BrandService brandService;
+
+    @GetMapping("/category/{id}")
+    public Result<List<Brand>> findBrandByCategoryId(@PathVariable Integer id){
+        List<Brand> brandList = brandService.findBrandByCategoryId(id);
+        return new Result<>(true,StatusCode.OK,"查询成功",brandList);
+    }
 
     /***
      * Brand分页条件搜索实现

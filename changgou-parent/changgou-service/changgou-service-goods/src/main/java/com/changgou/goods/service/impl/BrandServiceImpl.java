@@ -24,6 +24,12 @@ public class BrandServiceImpl implements BrandService {
     private BrandMapper brandMapper;
 
 
+    @Override
+    public List<Brand> findBrandByCategoryId(Integer categoryId) {
+        brandMapper.findBrandByCategoryId(categoryId);
+        return null;
+    }
+
     /**
      * Brand条件+分页查询
      * @param brand 查询条件

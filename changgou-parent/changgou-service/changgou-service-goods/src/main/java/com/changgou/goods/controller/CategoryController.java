@@ -24,6 +24,12 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
+    @GetMapping("/list/{pid}")
+    public Result<List<Category>> findByParentId(@PathVariable Integer pid){
+        List<Category> categories = categoryService.findByParentId(pid);
+        return new Result<>(true,StatusCode.OK,"查询成功",categories);
+    }
+
     /***
      * Category分页条件搜索实现
      * @param category

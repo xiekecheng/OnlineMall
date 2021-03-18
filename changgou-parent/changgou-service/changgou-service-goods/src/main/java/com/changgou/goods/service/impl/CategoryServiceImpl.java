@@ -1,10 +1,12 @@
 package com.changgou.goods.service.impl;
 
 import com.changgou.goods.dao.CategoryMapper;
+import com.changgou.goods.pojo.Brand;
 import com.changgou.goods.pojo.Category;
 import com.changgou.goods.service.CategoryService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.bouncycastle.est.jcajce.JcaHttpAuthBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -22,6 +24,14 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
     private CategoryMapper categoryMapper;
+
+    @Override
+    public List<Category> findByParentId(Integer pid){
+        Category category = new Category();
+        category.setParentId(pid);
+
+        return categoryMapper.select(category);
+    }
 
 
     /**
