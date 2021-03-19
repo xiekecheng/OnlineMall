@@ -25,10 +25,39 @@ public class SpuController {
     @Autowired
     private SpuService spuService;
 
+    @PutMapping("/restore/{id}")
+    public Result restore(@PathVariable Long id){
+        spuService.restore(id);
+        return new Result(true,StatusCode.OK,"还原商品成功");
+
+    }
+
+    /**
+     * 逻辑删除商品
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/logic/delete/{id}")
+    public Result logicDelete(@PathVariable Long id){
+        spuService.logicDelete(id);
+        return new Result(true,StatusCode.OK,"逻辑删除成功");
+    }
+
+    @PutMapping("/put/many")
+    public Result putMany(@RequestBody Long[] ids){
+        int count = spuService.putMany(ids);
+        return new Result(true,StatusCode.OK,"上架了"+count+"个商品");
+    }
+
     @PutMapping("/pull/{id}")
     public Result pull(@PathVariable Long id){
         spuService.pull(id);
         return new Result(true,StatusCode.OK,"下架商品成功");
+    }
+    @PutMapping("/pull/many")
+    public Result pullMany(@RequestBody Long[] ids){
+        int count = spuService.pullMany(ids);
+        return new Result(true,StatusCode.OK,"下架了"+count+"个商品");
     }
 
     @PutMapping("/audit/{id}")

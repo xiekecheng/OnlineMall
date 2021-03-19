@@ -10,12 +10,12 @@ import com.changgou.goods.service.SpuService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import entity.IdWorker;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +45,33 @@ public class SpuServiceImpl implements SpuService {
 
 
     @Override
-    public void putMany(Long[] ids) {
+    public void restore(Long spuId) {
+        Spu spu = spuMapper.selectByPrimaryKey(spuId);
+        if (!spu.getIsDelete().equals("1")){
+            throw  new RuntimeException("该商品未删除");
+        }
+        // 未审核
+        spu.setStatus("0");
+        // 还原商品
+        spu.setIsDelete("0");
+        spuMapper.updateByPrimaryKeySelective(spu);
+    }
+
+    @Override
+    public void logicDelete(Long spuId) {
+        Spu spu = spuMapper.selectByPrimaryKey(spuId);
+        if (!spu.getIsMarketable().equals("0")){
+            throw  new RuntimeException("必须先下架商品才能进行删除");
+        }
+        spu.setStatus("0");
+        spu.setIsDelete("1");
+        spuMapper.updateByPrimaryKeySelective(spu);
+
+    }
+
+    @Override
+    public int putMany(Long[] ids) {
+        /*
         for (Long id : ids) {
             Spu spu = spuMapper.selectByPrimaryKey(id);
             if ("1".equals(spu.getIsDelete())) {
@@ -58,6 +84,25 @@ public class SpuServiceImpl implements SpuService {
             spu.setIsMarketable("1");
             spuMapper.updateByPrimaryKeySelective(spu);
         }
+         */
+        Spu spu = new Spu();
+        //修改的值
+        spu.setIsMarketable("1");
+
+        //条件
+        Example example = new Example(Spu.class);
+        Example.Criteria criteria = example.createCriteria();
+
+        criteria.andIn("id", Arrays.asList(ids));
+        //未上架
+        criteria.andEqualTo("isMarketable","0");
+        //未删除
+        criteria.andEqualTo("isDelete","0");
+        //已审核
+        criteria.andEqualTo("status","1");
+        return spuMapper.updateByExampleSelective(spu,example);
+
+
     }
 
     @Override
@@ -74,6 +119,8 @@ public class SpuServiceImpl implements SpuService {
         spuMapper.updateByPrimaryKeySelective(spu);
     }
 
+
+
     @Override
     public void pull(Long spuId) {
         Spu spu = spuMapper.selectByPrimaryKey(spuId);
@@ -83,6 +130,22 @@ public class SpuServiceImpl implements SpuService {
         //下架商品
         spu.setIsMarketable("0");
         spuMapper.updateByPrimaryKeySelective(spu);
+    }
+
+    @Override
+    public int pullMany(Long[] ids) {
+        Spu spu = new Spu();
+        spu.setIsMarketable("0");
+        Example example = new Example(Spu.class);
+        Example.Criteria criteria = example.createCriteria();
+        //批量下架商品
+        criteria.andIn("id",Arrays.asList(ids));
+        //已上架
+        criteria.andEqualTo("isMarketable","1");
+        //未删除
+        criteria.andEqualTo("isDelete","0");
+        return spuMapper.updateByExampleSelective(spu,example);
+
     }
 
     @Override
@@ -329,6 +392,11 @@ public class SpuServiceImpl implements SpuService {
      */
     @Override
     public void delete(String id) {
+        Spu spu = spuMapper.selectByPrimaryKey(id);
+        // 判断是否已进行逻辑删除
+        if (!spu.getIsDelete().equals("1")){
+            throw new RuntimeException("该商品未进行逻辑删除");
+        }
         spuMapper.deleteByPrimaryKey(id);
     }
 

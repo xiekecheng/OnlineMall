@@ -13,7 +13,20 @@ import java.util.List;
  *****/
 public interface SpuService {
 
-    void putMany(Long[] ids);
+    void restore(Long spuId);
+
+    /**
+     * 逻辑删除商品
+     * @param spuId
+     */
+    void logicDelete(Long spuId);
+
+    /**
+     * 批量上架
+     * @param ids
+     * @return
+     */
+    int putMany(Long[] ids);
 
     /**
      * 上架商品
@@ -26,6 +39,8 @@ public interface SpuService {
      * @param spuId
      */
     void pull(Long spuId);
+
+    int pullMany(Long[] ids);
     /**
      * 商品审核
      * @param spuId
