@@ -1,5 +1,6 @@
 package com.changgou.goods.controller;
 
+import com.changgou.goods.pojo.Goods;
 import com.changgou.goods.pojo.Spu;
 import com.changgou.goods.service.SpuService;
 import com.github.pagehelper.PageInfo;
@@ -23,6 +24,31 @@ public class SpuController {
 
     @Autowired
     private SpuService spuService;
+
+    @PutMapping("/pull/{id}")
+    public Result pull(@PathVariable Long id){
+        spuService.pull(id);
+        return new Result(true,StatusCode.OK,"下架商品成功");
+    }
+
+    @PutMapping("/audit/{id}")
+    public Result audit(@PathVariable Long id){
+        spuService.audit(id);
+        return new Result(true,StatusCode.OK,"审核成功");
+    }
+
+    @GetMapping("/goods/{id}")
+    public Result<Goods> findGoodsById(@PathVariable Long id){
+        //根据id查询goods(spu+sku)信息
+        Goods goods = spuService.findGoodsById(id);
+        return new Result<>(true,StatusCode.OK,"查询成功",goods);
+    }
+
+    @PostMapping("/save")
+    public Result saveGoods(@RequestBody Goods goods){
+        spuService.saveGoods(goods);
+        return new Result(true,StatusCode.OK,"保存成功");
+    }
 
     /***
      * Spu分页条件搜索实现
@@ -82,7 +108,7 @@ public class SpuController {
      * @return
      */
     @PutMapping(value="/{id}")
-    public Result update(@RequestBody  Spu spu,@PathVariable String id){
+    public Result update(@RequestBody  Spu spu,@PathVariable Long id){
         //设置主键值
         spu.setId(id);
         //调用SpuService实现修改Spu
@@ -108,7 +134,7 @@ public class SpuController {
      * @return
      */
     @GetMapping("/{id}")
-    public Result<Spu> findById(@PathVariable String id){
+    public Result<Spu> findById(@PathVariable Long id){
         //调用SpuService实现根据主键查询Spu
         Spu spu = spuService.findById(id);
         return new Result<Spu>(true,StatusCode.OK,"查询成功",spu);

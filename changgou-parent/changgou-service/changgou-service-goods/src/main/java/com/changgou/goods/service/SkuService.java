@@ -12,6 +12,9 @@ import java.util.List;
  *****/
 public interface SkuService {
 
+
+    void updateNum(Long skuId,Integer num);
+
     /***
      * Sku多条件分页查询
      * @param sku

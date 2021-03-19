@@ -15,7 +15,7 @@ public class Spu implements Serializable{
 
 	@Id
     @Column(name = "id")
-	private String id;//主键
+	private Long id;//主键
 
     @Column(name = "sn")
 	private String sn;//货号
@@ -83,12 +83,12 @@ public class Spu implements Serializable{
 
 
 	//get方法
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
 
 	//set方法
-	public void setId(String id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 	//get方法

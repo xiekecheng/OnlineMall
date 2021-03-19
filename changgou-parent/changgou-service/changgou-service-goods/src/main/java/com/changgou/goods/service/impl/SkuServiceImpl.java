@@ -24,6 +24,14 @@ public class SkuServiceImpl implements SkuService {
     private SkuMapper skuMapper;
 
 
+    @Override
+    public void updateNum(Long skuId,Integer num) {
+        Sku sku = skuMapper.selectByPrimaryKey(skuId);
+        //修改库存
+        sku.setNum(num);
+        skuMapper.updateByPrimaryKey(sku);
+    }
+
     /**
      * Sku条件+分页查询
      * @param sku 查询条件

@@ -82,7 +82,7 @@ public class SkuController {
      * @return
      */
     @PutMapping(value="/{id}")
-    public Result update(@RequestBody  Sku sku,@PathVariable String id){
+    public Result update(@RequestBody  Sku sku,@PathVariable Long id){
         //设置主键值
         sku.setId(id);
         //调用SkuService实现修改Sku
