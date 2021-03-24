@@ -56,7 +56,6 @@ public class SpuServiceImpl implements SpuService {
         spu.setIsDelete("0");
         spuMapper.updateByPrimaryKeySelective(spu);
     }
-
     @Override
     public void logicDelete(Long spuId) {
         Spu spu = spuMapper.selectByPrimaryKey(spuId);
@@ -71,20 +70,6 @@ public class SpuServiceImpl implements SpuService {
 
     @Override
     public int putMany(Long[] ids) {
-        /*
-        for (Long id : ids) {
-            Spu spu = spuMapper.selectByPrimaryKey(id);
-            if ("1".equals(spu.getIsDelete())) {
-                throw new RuntimeException("此商品已删除");
-            }
-            if ("0".equals(spu.getStatus())) {
-                throw new RuntimeException("此商品未审核");
-            }
-            // 上架商品
-            spu.setIsMarketable("1");
-            spuMapper.updateByPrimaryKeySelective(spu);
-        }
-         */
         Spu spu = new Spu();
         //修改的值
         spu.setIsMarketable("1");
