@@ -31,11 +31,7 @@ public class SkuController {
     }
 
     /***
-<<<<<<< HEAD
-     * Sku分页条件搜索实现ooo
-=======
-     * Sku分页条件搜索实现spppppnnnnabc
->>>>>>> parent of cc397c5... Revert "s"
+     * Sku分页条件搜索实现
      * @param sku
      * @param page
      * @param size
