@@ -3,11 +3,11 @@ server:
 spring:
   application:
     name: canal
-  main:
-    allow-bean-definition-overriding: true
-  redis:
-    host: 118.24.105.228
-    port: 6379
+#  main:
+#    allow-bean-definition-overriding: true
+#  redis:
+#    host: 118.24.105.228
+#    port: 6379
 eureka:
   client:
     service-url:

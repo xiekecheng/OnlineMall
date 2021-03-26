@@ -25,6 +25,16 @@ public class SkuServiceImpl implements SkuService {
 
 
     @Override
+    public List<Sku> findByStatus(String status) {
+        Sku sku = new Sku();
+        // 审核状态
+        sku.setStatus("1");
+        List<Sku> skuList = skuMapper.select(sku);
+
+        return null;
+    }
+
+    @Override
     public void updateNum(Long skuId,Integer num) {
         Sku sku = skuMapper.selectByPrimaryKey(skuId);
         //修改库存

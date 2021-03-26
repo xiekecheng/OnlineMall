@@ -12,6 +12,8 @@ import java.util.List;
  *****/
 public interface SkuService {
 
+    List<Sku> findByStatus(String status);
+
 
     void updateNum(Long skuId,Integer num);
 
