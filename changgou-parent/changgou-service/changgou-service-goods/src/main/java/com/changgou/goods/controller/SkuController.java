@@ -31,7 +31,7 @@ public class SkuController {
     }
 
     /***
-     * Sku分页条件搜索实现
+     * Sku分页条件搜索实现s
      * @param sku
      * @param page
      * @param size
