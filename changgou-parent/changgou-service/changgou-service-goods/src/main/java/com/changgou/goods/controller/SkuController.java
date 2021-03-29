@@ -24,9 +24,9 @@ public class SkuController {
     @Autowired
     private SkuService skuService;
 
-    @GetMapping("/stasus/{status}")
-    public Result<List<Sku>> findByStatus(@PathVariable String stasus){
-        List<Sku> skuList = skuService.findByStatus(stasus);
+    @GetMapping("/status/{status}")
+    public Result<List<Sku>> findByStatus(@PathVariable String status){
+        List<Sku> skuList = skuService.findByStatus(status);
         return new Result<>(true,StatusCode.OK,"查询成功",skuList);
     }
 

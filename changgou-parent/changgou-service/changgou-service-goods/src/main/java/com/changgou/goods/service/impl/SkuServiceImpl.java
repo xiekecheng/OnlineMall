@@ -29,9 +29,7 @@ public class SkuServiceImpl implements SkuService {
         Sku sku = new Sku();
         // 审核状态
         sku.setStatus("1");
-        List<Sku> skuList = skuMapper.select(sku);
-
-        return null;
+        return skuMapper.select(sku);
     }
 
     @Override
