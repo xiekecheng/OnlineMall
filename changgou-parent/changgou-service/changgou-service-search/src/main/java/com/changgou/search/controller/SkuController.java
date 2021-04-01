@@ -6,10 +6,9 @@ import entity.Result;
 import entity.StatusCode;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.ReactiveSubscription;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /****
  * @Description:
@@ -27,5 +26,15 @@ public class SkuController {
     public Result importData(){
         skuService.importSku();
         return new Result(true, StatusCode.OK,"导入数据到索引库成功");
+    }
+
+    @GetMapping
+    public Map<String,Object> search(@RequestParam(required = false) Map<String,String> searchMap){
+        return skuService.search(searchMap);
+    }
+
+    @GetMapping("/keyword")
+    public Map<String,Object> keywordSearch(@RequestParam(required = false) Map<String,String> searchMap){
+        return skuService.keywordSearch(searchMap);
     }
 }
