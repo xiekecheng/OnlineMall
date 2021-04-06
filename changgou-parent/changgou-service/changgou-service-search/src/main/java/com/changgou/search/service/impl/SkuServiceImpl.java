@@ -150,7 +150,7 @@ public class SkuServiceImpl implements SkuService {
         NativeSearchQuery build = nativeSearchQueryBuilder.build();
 
         // 执行搜索
-        AggregatedPage<SkuInfo> page = esTemplate.queryForPage(build, SkuInfo.class);
+        AggregatedPage<SkuInfo> page = esTemplate.queryForPage(build, SkuInfo.class,new SearchResultMapperImpl());
         StringTerms categoryStringTerms = (StringTerms) page.getAggregation("skuCategorygroup");
         StringTerms brandStringTerms = (StringTerms) page.getAggregation("skuBrandgroup");
         StringTerms specStringTerms = (StringTerms) page.getAggregation("skuSpecgroup");
